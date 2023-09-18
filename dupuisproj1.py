@@ -18,11 +18,11 @@ def downloadText(url):
         
         else: #if the response is not a code 200, something is wrong, don't download text data.
 
-            print("Failed to download data.") 
+            print("Failed to download data- could not reach desired website.") 
 
     except Exception as e:
 
-        print("An error occurred")
+        print("An error occurred, check your Internet connection.")
         return None
 
 if __name__ == "__main__":
