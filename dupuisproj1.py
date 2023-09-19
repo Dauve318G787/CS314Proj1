@@ -14,11 +14,15 @@ def downloadText(url):
 
             websiteText = parsedContent.getText()
 
+            print(response) #print 
+
             return websiteText
         
         else: #if the response is not a code 200, something is wrong, don't download text data.
 
             print("Failed to download data- could not reach desired website.") 
+
+            print(response)
 
     except Exception as e:
 
