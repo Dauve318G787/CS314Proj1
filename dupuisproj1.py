@@ -1,48 +1,43 @@
 import requests #allows us to make HTTP requests
 from bs4 import BeautifulSoup #allows us to web scrape
 import sys #allows us to use command line args
+import praw
+from praw.models import MoreComments
 
-def downloadText(url):
+redditCommentFile = open("websiteData.txt", "w")
 
-    try:
+reddit_read_only = praw.Reddit(client_id="o4gdzZa2AGpARW1htVDMcg",
+                               client_secret="HDSYgES1OHiZL5KjVHj4mgBo7dnjwQ",
+                               user_agent="David Dupuis")
 
-        response = requests.get(url) #sends an HTTP requests to the website and gets a response
+subreddit = reddit_read_only.subreddit("tednivison")
 
-        if response.status_code == 200: #if the response is a code 200, all is well- download text data from website.
+print("Subreddit Name: ", subreddit.display_name)
+print("Subreddit Description: ", subreddit.description)
 
-            parsedContent = BeautifulSoup(response.text, 'html.parser')
+url = sys.argv[1]
 
-            websiteText = parsedContent.getText() #gets text from parsed HTML
+submission = reddit_read_only.submission(url=url)
 
-            print(response) #print response code
+comments = submission.comments
 
-            return websiteText #returns parsed text
+def extractComments(comments, level=0):
+
+    for comment in comments:
+
+        commentBody = comment.body
+
+        with open('websiteData.txt', 'a') as commentFile:
+
+            commentFile.write(' ' * level + commentBody + "\n")
         
-        else: #if the response is not a code 200, something is wrong, don't download text data.
+        if comment.replies:
 
-            print("Failed to download data- could not reach desired website.") 
+            extractComments(comment.replies, level + 1)
 
-            print(response) #print response code
 
-    except Exception as e:
+extractComments(comments)
 
-        print("An error occurred, check your Internet connection.") #prints error message
-        return None #returns nothing
+    
 
-if __name__ == "__main__":
-
-    url = sys.argv[1] #takes URL as first argument (argument after dupuisproj1.py)
-
-    textData = downloadText(url) #pass URL into downloadText to get text, store text in textData
-
-    fileToWriteTo = open("websiteData.txt", "w") #open websiteData.txt for writing
-
-    if textData: #if websiteData.txt is open for writing...
-
-        fileToWriteTo.write(textData) #write text data to websiteData.txt!
-        
-
-    else: #otherwise, print error message.
-
-        print("Could not download text data.")
 
