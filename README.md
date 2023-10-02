@@ -2,7 +2,7 @@
 
 David Dupuis
 CS325 - Software Engineering
-Project 1: Web Scraping
+Project 2: Reddit Comments
 Dr. Manas Jyoti Das
 
 -----------------------------------------------
