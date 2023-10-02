@@ -10,12 +10,12 @@ reddit_read_only = praw.Reddit(client_id="o4gdzZa2AGpARW1htVDMcg",
                                client_secret="HDSYgES1OHiZL5KjVHj4mgBo7dnjwQ",
                                user_agent="David Dupuis")
 
-subreddit = reddit_read_only.subreddit("tednivison")
+subreddit = reddit_read_only.subreddit(sys.argv[1])
 
 print("Subreddit Name: ", subreddit.display_name)
 print("Subreddit Description: ", subreddit.description)
 
-url = sys.argv[1]
+url = sys.argv[2]
 
 submission = reddit_read_only.submission(url=url)
 
@@ -29,7 +29,7 @@ def extractComments(comments, level=0):
 
         with open('websiteData.txt', 'a') as commentFile:
 
-            commentFile.write(' ' * level + commentBody + "\n")
+            commentFile.write('Reply: ' * level + commentBody + "\n")
         
         if comment.replies:
 
