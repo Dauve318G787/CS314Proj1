@@ -3,7 +3,7 @@ import os
 parentDir = os.getcwd()
 
 os.chdir(parentDir)
-os.chdir("projectIntro")
+os.chdir("module_1")
 
 with open('projectIntro.py', 'r') as projectIntro:
 
@@ -11,7 +11,7 @@ with open('projectIntro.py', 'r') as projectIntro:
     exec(code)
 
 os.chdir(parentDir)
-os.chdir("getRawData")
+os.chdir("module_2")
 
 with open('getRawData.py', 'r') as getRawData:
 
@@ -19,7 +19,7 @@ with open('getRawData.py', 'r') as getRawData:
     exec(code)
  
 os.chdir(parentDir)
-os.chdir("getProcessedData")
+os.chdir("module_3")
 
 with open('getProcessedData.py', 'r') as getProcessedData:
 
